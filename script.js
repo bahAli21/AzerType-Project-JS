@@ -10,8 +10,9 @@ function afficheResultat(resultat,nbMot)
 
 function phraseOuMot()
 {
+    let choix
     do{
-        let choix=prompt("Voulez vous jouez avec des mots ou phrase ?: m pour mots et p pour phrase")
+         choix=prompt("Voulez vous jouez avec des mots ou phrase ?: m pour mots et p pour phrase")
 
     }while(choix!=="m" || choix!=="p")
 
