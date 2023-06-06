@@ -1,6 +1,6 @@
 
 //Part 2
-const mot = ["Bonjour","MaMa";"Paapaff","taatfgrgg"]
+const mot = ["Bonjour","MaMa","Paapaff","taatfgrgg"]
 const phrase=["Bonjour monsieur","Haha le batard","Tu m'etonne mec","chien de mer"]
 
 function afficheResultat(resultat,nbMot)
