@@ -10,18 +10,21 @@ function afficheResultat(resultat,nbMot)
 
 function phraseOuMot()
 {
-    let choix
-    do{
-         choix=prompt("Voulez vous jouez avec des mots ou phrase ?: m pour mots et p pour phrase")
+    let choix=""
+    
+         
 
-    }while(choix!=="m" || choix!=="p")
+    while(choix!=="m" && choix!=="p")
+    {
+         choix=prompt("Voulez vous jouez avec des mots ou phrase ?: m pour mots et p pour phrase")
+    }
 
     return choix
 }
 
 function lancerBoucleDeJeu (tab)
 {
-    let nbCorr
+    let nbCorr=0
     for(let i=0;i<tab.length;++i)
     {
         let mot=prompt("Entrer : "+tab[i])
@@ -37,12 +40,12 @@ function lancerJeu()
     if(phraseOuMot()==="m")
     {
         let res=lancerBoucleDeJeu(mot)
-        afficheResultat(res,mot.length)
+        console.log(afficheResultat(res,mot.length))
     }    
     else
     {
         let res=lancerBoucleDeJeu(phrase)
-        afficheResultat(res,phrase.length)
+        console.log(afficheResultat(res,phrase.length))
     }
 }
 
