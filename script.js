@@ -1,26 +1,3 @@
-const listeMots = ["Cachalot","Pétunia","Serviette"]
-
-function theScore(nbQuestion)
-{
-    let score = 0
-
-    for(let i=0;i<nbQuestion;++i)
-    {
-        let motTape = prompt("Entrez le mot "+listeMots[i])
-        if(motTape === listeMots[i])
-            score++
-    }
-    return score
-}
-
-function returnMessage(sc,question)
-{
-    let mess = "Votre score est de "+sc+" sur "+question+" question"
-    return mess
-}
-
-console.log(returnMessage(theScore(listeMots.length),listeMots.length))
-
 
 //Part 2
 const mot = ["Bonjour","MaMa";"Paapaff","taatfgrgg"]
