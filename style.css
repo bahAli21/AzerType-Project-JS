@@ -14,7 +14,7 @@
 body {
     --color-primary: #f76c5e;
     --color-secondary: #f68e5f;
-    --color-tertiary: #ffeee6;    
+    --color-tertiary: #ffeee6;
 }
 
 /* Mise en forme des titres */
@@ -85,7 +85,7 @@ button:focus {
     background-color: var(--color-tertiary);
     border: 3px solid var(--color-primary);
     padding: 2px;
-    
+
 }
 
 /**
@@ -97,7 +97,7 @@ body {
     justify-content: space-between;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -200,7 +200,10 @@ footer {
     width: 100vw;
     background-color: rgba(255, 255, 255, 0.5);
 }
-
+.error
+{
+  background-color: red;
+}
 .popup {
     position: absolute;
     top: 50%;
@@ -246,7 +249,7 @@ footer {
     margin: 5px;
 }
 
-/** 
+/**
  * Responsive
  */
 

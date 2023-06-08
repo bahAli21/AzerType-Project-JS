@@ -3,6 +3,7 @@
 const Listemot = ["Bonjour","MaMa","Paapaff","taatfgrgg"]
 const phrase=["Bonjour monsieur","Haha le batard","Tu m'etonne mec","chien de mer"]
 
+let question=0
 function afficheResultat(resultat,nbMot)
 {
  //Je recupère l'element parent span qui se trouve dans un bloc de classe zoneScore avec la methode querySelector
@@ -10,17 +11,11 @@ function afficheResultat(resultat,nbMot)
 
  //J'utilise une interpolation pour generer du HTML
  let message = `
-      
-       <h4>${resultat}/${nbMot}</h4>` 
- 
+
+       <h4>${resultat}/${nbMot}</h4>`
+
 //J'ajoute le message generer dans l'objet recupérer grâce a innerHTML
 conteneur.innerHTML=message;
-
-}
-
-function phraseOuMot()
-{
-    
 
 }
 
@@ -29,15 +24,15 @@ let nbCorr=0
 
 function lancerBoucleDeJeu (tab)
 {
-    
+
     for(let i=0;i<tab.length;++i)
     {
         //Je recupère l'element HTML a partir de son id
         let motElement=document.getElementById("inputEcriture")
 
-        //J'affecte son contenue (value) car c'est une balse input a une variable JS       
+        //J'affecte son contenue (value) car c'est une balse input a une variable JS
         let  mot=motElement.value
-        //Je test si le mot saisi est egale a celui afficher 
+        //Je test si le mot saisi est egale a celui afficher
         if(mot===tab[i])
            nbCorr++  //J'incremente le nombre de mot correct a 1
     }
@@ -54,16 +49,70 @@ function afficheProposition(mot)
   //J'utilise l'interpolation pour generer un message 'le mot'
   let mess = `
        ${mot}
-              
+
        `
     //J'ajoute ce message au code HTML avec l'attribut innertText
   zone.innerText=mess
 }
+function valideNom(nom){
+  //J'enlève les espace de debut avec la methode trimp
+  let noSpace=nom.trim()
+  if(noSpace.length<2)
+    return false
+  return true
+}
 
+function valideEmail(email){
+  //Je construit l'expression regulière au format d'une adresse email
+  let formatEmail = new RegExp("[a-zA-Z0-9.-_]+@[a-zA-Z0-9.-_]+\.[a-zA-Z0-9.-_]+")
+  return formatEmail.test(email)
+}
+function sendEmail(nom,subject,corps,email)
+{
+  let mailto=`mailto:${email}+?subject=${subject}&body=${corps}`
+  location.href=mailto
+}
+
+function traitePartage()
+{
+  //Je recupère le bouton btnEnvoyerMail
+  let boutonSubmit=document.querySelector('form')
+
+  //J'ecoute l'evenement du bouton avec addEventListener
+  boutonSubmit.addEventListener("submit",(event)=>{
+    //J'empêche la page de se recharger
+    event.preventDefault()
+    let nom=document.getElementById('nom').value
+    let email=document.getElementById('email').value
+    console.log(nom)
+    console.log(email)
+     if(!valideNom(nom) || !valideEmail(email) )
+     {
+       if(!valideNom(nom))
+         document.getElementById('nom').classList.add("error")
+       else
+         document.getElementById('email').classList.add("error")
+     }
+     else {
+       document.getElementById('nom').classList.remove("error")
+       document.getElementById('email').classList.remove("error")
+       let sujet = "Je partage mon score"
+       let message = `Bonjour je m'appel ${nom} J'ai jouer au jeu AzerType en ligne et mon score est ${lancerBoucleDeJeu(tab)}/${question} veut tu me defier ?`
+       sendEmail(nom,sujet,message,email)
+     }
+
+
+
+
+  })
+
+}
+let tab=Listemot
+traitePartage()
 
 function lancerJeu()
 {
-    let tab=Listemot
+
     //un compteur i
     let i=0
     //Je recupere 2 objets HTML
@@ -73,40 +122,44 @@ function lancerJeu()
      let baliseRadio = document.querySelectorAll('input[name="optionSource"]')
 
 
-    
-    
+
+
     //J'ecoute l'action de l'utilisateur sur le bouton validé
         afficheProposition(tab[i])
        valider.addEventListener("click",(event) =>{
-        
+
+
         //event.target recupère l'objet HTML
          monBoutonValider=event.target
          console.log(`J'ai cliquer sur : ${monBoutonValider.id}`)
-         
+
          console.log(inputEcr.value)
 
          //si la valeur dans la case i est pas vide
+         i++
         if(tab[i]!==undefined)
         {
-            i++
-            let score = lancerBoucleDeJeu(tab)  
-            afficheResultat(score,tab.length)  
+            question++
+
+            let score = lancerBoucleDeJeu(tab)
+            afficheResultat(score,question)
             afficheProposition(tab[i])
-           
-        }   
+
+        }
         else
         {
-           
-            let score = lancerBoucleDeJeu(tab)  
-            afficheResultat(score,tab.length) 
+
+            let score = lancerBoucleDeJeu(tab)
+            afficheResultat(score,tab.length)
             afficheProposition("Le jeu est fini")
         }
-        
 
-      
-            
+
+
+
+
     })
-     
+
       for(let index=0;index<baliseRadio.length;++index)
       {
           baliseRadio[index].addEventListener("change",(event)=>{
@@ -119,10 +172,9 @@ function lancerJeu()
           }
           afficheProposition(tab[i])
           })
-        
+
       }
-      
+
 }
 
 lancerJeu()
-
