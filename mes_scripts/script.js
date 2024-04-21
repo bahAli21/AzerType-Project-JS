@@ -1,6 +1,6 @@
 
 //Part 2
-const Listemot = ["Bonjour","MaMa","Paapaff","taatfgrgg"]
+const Listemot = ["Bonjour","MaMa","Paapaff","taatfgrgg", "Haha", "Wirtz"]
 const phrase=["Bonjour monsieur","Haha le batard","Tu m'etonne mec","chien de mer"]
 
 let question=0
@@ -55,7 +55,7 @@ function afficheProposition(mot)
   zone.innerText=mess
 }
 function valideNom(nom){
-  //J'enlève les espace de debut avec la methode trimp
+  //J'enlève les espace de debut avec la methode trim
   let noSpace=nom.trim()
   if(noSpace.length<2)
     return false
@@ -67,11 +67,41 @@ function valideEmail(email){
   let formatEmail = new RegExp("[a-zA-Z0-9.-_]+@[a-zA-Z0-9.-_]+\.[a-zA-Z0-9.-_]+")
   return formatEmail.test(email)
 }
-function sendEmail(nom,subject,corps,email)
-{
-  let mailto=`mailto:${email}+?subject=${subject}&body=${corps}`
-  location.href=mailto
+
+//Utilisation d'une API emailJS
+function sendEmail(nom, subject, corps, email) {
+    let btnSend = document.getElementById("btnEnvoyerMail");
+
+    // Définir un tableau de valeurs pour l'animation
+    let animationValues = ["partage.", "partage..", "partage...", "partage...."];
+    let currentIndex = 0;
+
+    // je mets à jour la valeur du bouton chaque deux secondes
+    let animationInterval = setInterval(function() {
+        btnSend.value = animationValues[currentIndex];
+        currentIndex = (currentIndex + 1) % animationValues.length; // Passons à la prochaine valeur
+    }, 2000);
+
+    // Envoie de l'e-mail après  8 secondes, pour bien faire l'effet animation
+    setTimeout(function() {
+        clearInterval(animationInterval); // j'arrête l'animation
+        btnSend.value = "Envoyer"; // Je remet la valeur initiale
+        emailjs.send("service_ttnsqiv","template_l7baqas",{
+            from_name: nom,
+            email: email,
+            message: corps,
+            from_subject: subject,
+            from_page_url: "https://bahali21.github.io/AzerType-Project-JS/",
+        }).then(function (res) {
+            alert("Message envoyé avec succès, Merci d'avoir essayé notre site");
+        }).catch(function(error) {
+            alert("Une erreur est survenue lors de l'envoi du message : " + error);
+        });
+    }, 8000); // 8 secondes de délai avant l'envoi de l'e-mail
 }
+
+
+
 
 function traitePartage()
 {
@@ -100,9 +130,6 @@ function traitePartage()
        let message = `Bonjour je m'appel ${nom} J'ai jouer au jeu AzerType en ligne et mon score est ${lancerBoucleDeJeu(tab)}/${question} veut tu me defier ?`
        sendEmail(nom,sujet,message,email)
      }
-
-
-
 
   })
 
@@ -153,10 +180,6 @@ function lancerJeu()
             afficheResultat(score,tab.length)
             afficheProposition("Le jeu est fini")
         }
-
-
-
-
 
     })
 

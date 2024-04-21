@@ -56,8 +56,8 @@
 
     <!-- FOOTER -->
     <footer>
-         <p>@Copyright : BAH Mamadou         <mark>codeCrafters</mark></p>
-
+         <p>@Copyright : BAH Mamadou <mark>codeCrafters</mark></p>
+    </footer>
     <!-- Popup de partage -->
     <div class="popupBackground">
         <div class="popup">
@@ -71,6 +71,13 @@
             </form>
         </div>
     </div>
-    </footer>
+
+    <!-- Integration de L'API emailJS -->
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        emailjs.init('nU-laLtZMg290t6Hc')
+    </script>
 </body>
 </html>
